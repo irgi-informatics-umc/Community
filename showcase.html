@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showcase | AxelL Skin Studio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --mc-green: #4CAF50;
+            --mc-green-dark: #388E3C;
+            --mc-brown: #795548;
+            --mc-dirt: #5D4037;
+            --bg-light: #F9FAFB;
+            --bg-card: #ffffff;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+            --accent-gold: #FFCA28;
+            --rarity-custom: #9C27B0;
+            --shadow-soft: 0 10px 25px rgba(0,0,0,0.05);
+            --shadow-glow: 0 0 15px rgba(76, 175, 80, 0.4);
+            --border-light: #E5E7EB;
+            --bg-section-alt: #ffffff;
+            --bg-hero-start: #E8F5E9;
+            --bg-hero-end: #FFF3E0;
+            --bg-footer: #E8F5E9;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --badge-online-bg: rgba(76, 175, 80, 0.1);
+            --btn-outline-bg: white;
+            --btn-outline-border: #E5E7EB;
+            --card-hover-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode {
+            --bg-light: #1a1a2e;
+            --bg-card: #16213e;
+            --text-dark: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --shadow-soft: 0 10px 25px rgba(0,0,0,0.3);
+            --shadow-glow: 0 0 20px rgba(76, 175, 80, 0.7);
+            --border-light: #2a2a4a;
+            --bg-section-alt: #16213e;
+            --bg-hero-start: #1a1a2e;
+            --bg-hero-end: #16213e;
+            --bg-footer: #0f3460;
+            --nav-bg: rgba(26, 26, 46, 0.95);
+            --badge-online-bg: rgba(76, 175, 80, 0.2);
+            --btn-outline-bg: #16213e;
+            --btn-outline-border: #2a2a4a;
+            --card-hover-shadow: 0 20px 40px rgba(76, 175, 80, 0.2);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body {
+            font-family:'Poppins',sans-serif;
+            color:var(--text-dark);
+            background-color:var(--bg-light);
+            overflow-x:hidden;
+            line-height:1.6;
+            transition:background-color 0.3s, color 0.3s;
+        }
+        .pixel-font { font-family:'Press Start 2P',cursive; line-height:1.4; }
+        a { text-decoration:none; color:inherit; }
+        .container { max-width:1200px; margin:0 auto; padding:0 20px; }
+        .section-padding { padding:80px 0; }
+        .text-center { text-align:center; }
+
+        /* Buttons & Badges */
+        .btn {
+            display:inline-flex; align-items:center; gap:10px;
+            padding:15px 30px; font-weight:600; border-radius:12px;
+            cursor:pointer; transition:all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+            border:none; text-align:center; justify-content:center;
+            position:relative; overflow:hidden;
+        }
+        .btn:active { transform:scale(0.95); }
+        .btn::after {
+            content:''; position:absolute; width:100%; height:100%;
+            top:0; left:0; pointer-events:none;
+            background-image:radial-gradient(circle, rgba(255,255,255,0.4) 10%, transparent 10.01%);
+            background-repeat:no-repeat; background-position:50%;
+            transform:scale(10,10); opacity:0; transition:transform 0.5s, opacity 1s;
+        }
+        .btn:active::after { transform:scale(0,0); opacity:0.3; transition:0s; }
+
+        .btn-primary {
+            background-color:var(--mc-green); color:white;
+            box-shadow:0 8px 0 var(--mc-green-dark), 0 15px 20px rgba(76,175,80,0.3);
+        }
+        .btn-primary:hover { transform:translateY(-5px); box-shadow:0 8px 0 var(--mc-green-dark), 0 20px 25px rgba(76,175,80,0.4); }
+
+        .btn-wa {
+            background-color:#25D366; color:white; box-shadow:0 8px 0 #128C7E;
+        }
+        .btn-wa:hover { transform:translateY(-5px); box-shadow:0 8px 0 #128C7E, 0 15px 20px rgba(37,211,102,0.4); }
+
+        .badge {
+            display:inline-block; padding:5px 10px; border-radius:8px;
+            font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:1px;
+        }
+        .badge-online {
+            background:var(--badge-online-bg); color:var(--mc-green-dark);
+            border:2px solid var(--mc-green); display:flex; align-items:center; gap:6px;
+        }
+        .online-dot {
+            width:8px; height:8px; background-color:var(--mc-green);
+            border-radius:50%; animation:pulse 1.5s infinite;
+        }
+        .badge-glow {
+            background:var(--mc-green); color:white; box-shadow:var(--shadow-glow);
+            animation:glowPulse 2s infinite alternate;
+        }
+        .rarity-basic { background:#E0E0E0; color:#424242; }
+        .rarity-custom { background:var(--rarity-custom); color:white; }
+
+        @keyframes pulse {
+            0%{box-shadow:0 0 0 0 rgba(76,175,80,0.4);}
+            70%{box-shadow:0 0 0 6px rgba(76,175,80,0);}
+            100%{box-shadow:0 0 0 0 rgba(76,175,80,0);}
+        }
+        @keyframes glowPulse {
+            from{box-shadow:0 0 5px rgba(76,175,80,0.5);}
+            to{box-shadow:0 0 20px rgba(76,175,80,0.8), 0 0 10px rgba(76,175,80,0.5) inset;}
+        }
+
+        /* Dark Mode Toggle */
+        .dark-toggle {
+            background:none; border:2px solid var(--border-light); border-radius:50%;
+            width:40px; height:40px; cursor:pointer; font-size:1.1rem;
+            display:flex; align-items:center; justify-content:center;
+            transition:all 0.3s; color:var(--text-dark); background:var(--bg-card);
+        }
+        .dark-toggle:hover { transform:rotate(20deg); border-color:var(--mc-green); color:var(--accent-gold); }
+
+        /* Slot Badge */
+        .slot-badge {
+            display:inline-flex; align-items:center; gap:8px;
+            background:#FFF3E0; border:2px solid var(--accent-gold); color:#5D4037;
+            padding:8px 18px; border-radius:30px; font-weight:700; font-size:0.85rem;
+            animation:subtlePulse 2s infinite; margin-bottom:10px;
+        }
+        body.dark-mode .slot-badge { background:rgba(255,202,40,0.1); color:var(--accent-gold); }
+        @keyframes subtlePulse {
+            0%,100%{box-shadow:0 0 0 0 rgba(255,202,40,0.4);}
+            50%{box-shadow:0 0 0 12px rgba(255,202,40,0);}
+        }
+
+        /* Trust Badges Row (compact) */
+        .trust-badges-container {
+            display:flex; flex-wrap:wrap; justify-content:center; gap:15px;
+            padding:15px 0;
+        }
+        .trust-badge-card {
+            display:flex; align-items:center; gap:8px;
+            background:var(--bg-card); padding:8px 16px;
+            border-radius:30px; font-weight:600; font-size:0.8rem;
+            color:var(--text-dark); border:2px solid var(--border-light);
+            transition:all 0.3s;
+        }
+        .trust-badge-card:hover { transform:translateY(-2px); border-color:var(--mc-green); }
+        .trust-badge-card i { font-size:1rem; }
+        .icon-green { color:var(--mc-green); }
+        .icon-gold { color:var(--accent-gold); }
+        .icon-blue { color:#3B82F6; }
+
+        /* Live Toast */
+        #live-toast {
+            position:fixed; bottom:20px; left:-380px;
+            background:var(--bg-card); border-radius:16px; padding:16px 20px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.15);
+            display:flex; align-items:center; gap:15px; z-index:1000;
+            border-left:5px solid var(--mc-green);
+            transition:transform 0.6s cubic-bezier(0.175,0.885,0.32,1.275);
+            max-width:340px;
+        }
+        #live-toast.show { transform:translateX(400px); }
+        .toast-close {
+            position:absolute; top:6px; right:10px; cursor:pointer;
+            font-size:0.7rem; color:var(--text-muted); background:none; border:none;
+        }
+        .toast-icon {
+            background:#E8F5E9; color:var(--mc-green); width:44px; height:44px;
+            border-radius:12px; display:flex; justify-content:center; align-items:center;
+            font-size:1.3rem; flex-shrink:0;
+        }
+
+        /* Navbar */
+        nav {
+            position:fixed; top:0; width:100%;
+            background:var(--nav-bg); backdrop-filter:blur(10px);
+            z-index:100; padding:15px 0;
+            box-shadow:0 2px 10px rgba(0,0,0,0.05);
+            transition:background 0.3s;
+        }
+        .nav-content { display:flex; justify-content:space-between; align-items:center; }
+        .logo { color:var(--mc-green); font-size:1.2rem; display:flex; align-items:center; gap:10px; }
+        .logo i { color:var(--mc-brown); }
+        .nav-links { display:flex; gap:25px; align-items:center; }
+        .nav-links a { font-weight:500; color:var(--text-dark); transition:color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color:var(--mc-green); }
+        .mobile-menu-btn { display:none; font-size:1.5rem; cursor:pointer; color:var(--text-dark); }
+
+        /* Header */
+        .showcase-header {
+            padding:150px 20px 80px;
+            background:linear-gradient(135deg, var(--bg-hero-start) 0%, var(--bg-hero-end) 100%);
+            text-align:center; border-bottom:8px solid var(--mc-brown); position:relative;
+            transition:background 0.3s;
+        }
+        .dirt-border { height:15px; background-color:var(--mc-green); width:100%; position:absolute; bottom:0; left:0; }
+        .header-title { font-size:2.5rem; color:var(--text-dark); margin:15px 0; text-shadow:2px 2px 0 rgba(76,175,80,0.2); }
+
+        /* Featured Grid */
+        .featured-grid {
+            display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:30px;
+            margin-top:40px; margin-bottom:60px;
+        }
+        .featured-card {
+            background:var(--bg-card); border-radius:24px; padding:30px;
+            text-align:center; box-shadow:var(--shadow-soft);
+            border:2px solid transparent; transition:all 0.4s; position:relative;
+        }
+        .featured-card:hover {
+            transform:translateY(-10px); box-shadow:var(--card-hover-shadow); border-color:var(--mc-green);
+        }
+        .featured-badge {
+            position:absolute; top:-15px; left:50%; transform:translateX(-50%);
+            background:var(--accent-gold); color:var(--text-dark); padding:8px 15px;
+            border-radius:20px; font-weight:bold; font-size:0.7rem;
+            box-shadow:0 5px 15px rgba(255,202,40,0.4); white-space:nowrap;
+        }
+
+        /* Filter */
+        .filter-container { display:flex; justify-content:center; flex-wrap:wrap; gap:15px; margin-bottom:40px; }
+        .filter-btn {
+            background:var(--bg-card); border:2px solid var(--border-light);
+            color:var(--text-muted); padding:10px 25px; border-radius:30px;
+            font-weight:600; cursor:pointer; transition:all 0.3s;
+        }
+        .filter-btn:hover { border-color:var(--mc-green); color:var(--mc-green); }
+        .filter-btn.active { background:var(--mc-green); color:white; border-color:var(--mc-green); box-shadow:var(--shadow-glow); }
+
+        /* Skin Grid */
+        .skin-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:30px; }
+        .skin-card {
+            background:var(--bg-card); border-radius:20px; padding:25px 20px;
+            text-align:center; transition:transform 0.4s, box-shadow 0.4s;
+            position:relative; border:2px solid var(--border-light);
+            animation:fadeIn 0.5s ease forwards;
+        }
+        .skin-card:hover { transform:translateY(-8px); box-shadow:var(--card-hover-shadow); border-color:var(--mc-green); }
+        .skin-card.hide { display:none; }
+        .skin-img-wrapper { height:200px; display:flex; justify-content:center; align-items:center; margin-bottom:20px; perspective:1000px; }
+        .skin-img { height:180px; image-rendering:pixelated; transition:transform 0.5s; }
+        .skin-card:hover .skin-img { transform:scale(1.15) rotateY(15deg); }
+        .skin-tags { position:absolute; top:15px; right:15px; }
+
+        /* Before vs After */
+        #before-after { background-color:var(--bg-section-alt); border-top:2px dashed var(--border-light); border-bottom:2px dashed var(--border-light); }
+        .ba-wrapper {
+            position:relative; max-width:700px; height:450px; margin:0 auto;
+            border-radius:24px; overflow:hidden; box-shadow:var(--shadow-soft);
+            background: #E8F5E9; border:4px solid white;
+        }
+        .ba-img { position:absolute; top:0; left:0; width:100%; height:100%; display:flex; justify-content:center; align-items:center; }
+        .ba-img img { height:350px; image-rendering:pixelated; }
+        .ba-after { clip-path:polygon(0 0, 50% 0, 50% 100%, 0 100%); background:#FFF3E0; }
+        .ba-slider {
+            position:absolute; appearance:none; width:100%; height:100%;
+            background:transparent; outline:none; top:0; left:0; cursor:ew-resize; z-index:10;
+        }
+        .ba-slider::-webkit-slider-thumb {
+            appearance:none; width:8px; height:450px; background:var(--mc-green);
+            box-shadow:0 0 10px rgba(76,175,80,0.5); cursor:ew-resize; border-radius:4px;
+        }
+        .ba-labels { position:absolute; top:20px; width:100%; display:flex; justify-content:space-between; padding:0 30px; pointer-events:none; z-index:5; }
+        .label-badge { background:white; padding:8px 15px; border-radius:12px; font-weight:bold; box-shadow:var(--shadow-soft); }
+
+        /* Testimonials */
+        .testi-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:25px; margin-top:40px; }
+        .testi-card {
+            background:var(--bg-card); padding:25px; border-radius:16px;
+            border-left:4px solid var(--accent-gold); box-shadow:var(--shadow-soft);
+        }
+        .testi-header { display:flex; align-items:center; gap:15px; margin-bottom:15px; }
+        .testi-avatar {
+            width:50px; height:50px; border-radius:50%; background-color:#D1D5DB;
+            background-image:radial-gradient(#9CA3AF 15%, transparent 16%), radial-gradient(#9CA3AF 15%, transparent 16%);
+            background-size:10px 10px; background-position:0 0, 5px 5px;
+        }
+
+        /* CTA Footer */
+        .cta-footer {
+            background:var(--bg-card); padding:80px 20px; text-align:center;
+            border-top:8px solid var(--mc-green);
+        }
+        .cta-box { max-width:600px; margin:0 auto; }
+
+        /* Animations */
+        @keyframes fadeIn { from{opacity:0; transform:translateY(15px);} to{opacity:1; transform:translateY(0);} }
+        .reveal { opacity:0; transform:translateY(30px); transition:all 0.8s ease-out; }
+        .reveal.active { opacity:1; transform:translateY(0); }
+        .float-animation { animation:floatIcon 3s ease-in-out infinite; }
+        @keyframes floatIcon { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+
+        /* Responsive */
+        @media (max-width:768px) {
+            .nav-links { display:none; position:absolute; top:100%; left:0; width:100%; background:var(--bg-card); flex-direction:column; padding:20px; box-shadow:0 10px 10px rgba(0,0,0,0.05); }
+            .nav-links.active { display:flex; }
+            .mobile-menu-btn { display:block; }
+            .header-title { font-size:1.8rem; }
+            .ba-wrapper { height:350px; }
+            .ba-img img { height:280px; }
+            .ba-slider::-webkit-slider-thumb { height:350px; }
+            #live-toast { left:10px; right:10px; max-width:none; transform:translateY(150px); }
+            #live-toast.show { transform:translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Live Toast Notification -->
+    <div id="live-toast">
+        <button class="toast-close" onclick="dismissToast()">✕</button>
+        <div class="toast-icon"><i class="fas fa-shopping-bag"></i></div>
+        <div class="toast-content">
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:2px;">🟢 Baru saja order!</p>
+            <p style="font-weight:700; font-size:0.95rem; color:var(--text-dark);" id="toast-name">User123</p>
+            <p style="font-size:0.8rem; color:var(--mc-green);"><i class="fas fa-check-circle"></i> <span id="toast-type">Custom Skin</span></p>
+        </div>
+    </div>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="AxelL.html" class="logo pixel-font"><i class="fas fa-cube"></i> AxelL</a>
+            <div class="nav-links" id="navLinks">
+                <div class="badge badge-online"><span class="online-dot"></span> Online 24 Jam</div>
+                <a href="AxelL.html">Home</a>
+                <a href="#" class="active" style="color:var(--mc-green); font-weight:700;">Showcase</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="how-to-order.html">How to Order</a>
+                <a href="testimoni.html">Testimoni</a>
+                <button class="dark-toggle" id="darkToggle" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+            </div>
+            <div style="display:flex; align-items:center; gap:15px;">
+                <button class="dark-toggle mobile-dark-toggle" id="darkToggleMobile" title="Toggle Dark Mode" style="display:none;"><i class="fas fa-moon"></i></button>
+                <i class="fas fa-bars mobile-menu-btn" id="menuBtn"></i>
+            </div>
+        </div>
+    </nav>
+
+    <header class="showcase-header">
+        <div class="container reveal">
+            <div class="badge badge-glow pixel-font" style="font-size:0.6rem; margin-bottom:10px;">
+                <i class="fas fa-check-circle"></i> OPEN COMMISSION 24 JAM
+            </div>
+            <div>
+                <span class="slot-badge">
+                    🔥 Slot hari ini: <strong id="slotCount">3/10</strong> tersedia 🔥
+                </span>
+            </div>
+            <h1 class="header-title pixel-font">Gallery & Showcase</h1>
+            <p style="color:var(--text-muted); font-size:1.1rem;">Lihat hasil karya terbaik dari AxelL Skin Studio.</p>
+        </div>
+        <div class="dirt-border"></div>
+    </header>
+
+    <!-- Trust Badges Compact -->
+    <section style="background:var(--bg-card); padding:10px 0; border-bottom:2px solid var(--border-light);">
+        <div class="container">
+            <div class="trust-badges-container">
+                <div class="trust-badge-card"><i class="fas fa-bolt icon-gold"></i> Fast Response</div>
+                <div class="trust-badge-card"><i class="fas fa-paint-brush icon-green"></i> Custom Request</div>
+                <div class="trust-badge-card"><i class="fas fa-shield-alt icon-blue"></i> Trusted Seller</div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container section-padding">
+        <div class="text-center reveal">
+            <h2 class="pixel-font" style="font-size:1.3rem; margin-bottom:10px;"><i class="fas fa-crown" style="color:var(--accent-gold);"></i> Masterpiece</h2>
+            <p class="text-muted">Karya dengan detail terbaik dan paling diminati.</p>
+        </div>
+        <div class="featured-grid reveal">
+            <div class="featured-card">
+                <div class="featured-badge pixel-font"><i class="fas fa-fire"></i> Best Seller</div>
+                <div class="skin-img-wrapper" style="height:250px;">
+                    <img src="https://mc-heads.net/body/Dream/left" alt="Skin" class="skin-img" style="height:220px;" loading="lazy">
+                </div>
+                <h3 class="pixel-font" style="font-size:0.9rem;">Boy Streetwear</h3>
+                <p style="color:var(--text-muted);">Shading hoodie detail + aksen warna cerah.</p>
+            </div>
+            <div class="featured-card">
+                <div class="featured-badge pixel-font" style="background:var(--mc-green); color:white;"><i class="fas fa-thumbs-up"></i> Recommended</div>
+                <div class="skin-img-wrapper" style="height:250px;">
+                    <img src="https://mc-heads.net/body/Alex/left" alt="Skin" class="skin-img" style="height:220px;" loading="lazy">
+                </div>
+                <h3 class="pixel-font" style="font-size:0.9rem;">Aesthetic Girl</h3>
+                <p style="color:var(--text-muted);">Warna pastel lembut, cocok buat Roleplay.</p>
+            </div>
+        </div>
+
+        <div class="filter-container reveal">
+            <button class="filter-btn active" data-filter="all">All Styles</button>
+            <button class="filter-btn" data-filter="boy">Boy</button>
+            <button class="filter-btn" data-filter="girl">Girl</button>
+            <button class="filter-btn" data-filter="anime">Anime</button>
+            <button class="filter-btn" data-filter="fantasy">Fantasy</button>
+        </div>
+
+        <div class="skin-grid" id="skinGrid">
+            <div class="skin-card skin-item reveal" data-category="boy">
+                <div class="skin-tags"><span class="badge rarity-basic pixel-font" style="font-size:0.5rem;">Basic</span></div>
+                <div class="skin-img-wrapper"><img src="https://mc-heads.net/body/Steve/left" class="skin-img" loading="lazy"></div>
+                <h3>Casual Steve</h3><p style="color:var(--text-muted); font-size:0.85rem;">Simple & clean look.</p>
+            </div>
+            <div class="skin-card skin-item reveal" data-category="anime">
+                <div class="skin-tags"><span class="badge rarity-custom pixel-font" style="font-size:0.5rem;">Custom</span></div>
+                <div class="skin-img-wrapper"><img src="https://mc-heads.net/body/Grian/left" class="skin-img" loading="lazy"></div>
+                <h3>Anime Hero</h3><p style="color:var(--text-muted); font-size:0.85rem;">Cel-shaded style clothing.</p>
+            </div>
+            <div class="skin-card skin-item reveal" data-category="girl">
+                <div class="skin-tags"><span class="badge rarity-custom pixel-font" style="font-size:0.5rem;">Custom</span></div>
+                <div class="skin-img-wrapper"><img src="https://mc-heads.net/body/Nihachu/left" class="skin-img" loading="lazy"></div>
+                <h3>Cozy Gamer</h3><p style="color:var(--text-muted); font-size:0.85rem;">Headphones + Oversized shirt.</p>
+            </div>
+            <div class="skin-card skin-item reveal" data-category="fantasy">
+                <div class="skin-tags"><span class="badge rarity-custom pixel-font" style="font-size:0.5rem;">Custom</span></div>
+                <div class="skin-img-wrapper"><img src="https://mc-heads.net/body/Technoblade/left" class="skin-img" loading="lazy"></div>
+                <h3>Royal Knight</h3><p style="color:var(--text-muted); font-size:0.85rem;">Armor details & crown.</p>
+            </div>
+            <div class="skin-card skin-item reveal" data-category="boy">
+                <div class="skin-tags"><span class="badge rarity-custom pixel-font" style="font-size:0.5rem;">Custom</span></div>
+                <div class="skin-img-wrapper"><img src="https://mc-heads.net/body/DanTDM/left" class="skin-img" loading="lazy"></div>
+                <h3>Cyber Jacket</h3><p style="color:var(--text-muted); font-size:0.85rem;">Goggles and modern jacket.</p>
+            </div>
+            <div class="skin-card skin-item reveal" data-category="fantasy">
+                <div class="skin-tags"><span class="badge rarity-basic pixel-font" style="font-size:0.5rem;">Basic</span></div>
+                <div class="skin-img-wrapper"><img src="https://mc-heads.net/body/Notch/left" class="skin-img" loading="lazy"></div>
+                <h3>Classic Explorer</h3><p style="color:var(--text-muted); font-size:0.85rem;">Adventure ready outfit.</p>
+            </div>
+        </div>
+    </main>
+
+    <section id="before-after" class="section-padding">
+        <div class="container text-center">
+            <h2 class="pixel-font reveal" style="font-size:1.5rem; margin-bottom:15px;">Dari biasa jadi beda 🔥</h2>
+            <p class="text-muted reveal" style="margin-bottom:40px;">Geser panah di tengah untuk melihat perbandingan kualitas shading custom.</p>
+            <div class="ba-wrapper reveal">
+                <div class="ba-labels">
+                    <span class="label-badge" style="color:var(--text-muted);">DEFAULT</span>
+                    <span class="label-badge pixel-font" style="color:var(--mc-green); font-size:0.7rem;">CUSTOM</span>
+                </div>
+                <div class="ba-img"><img src="https://mc-heads.net/body/Steve/left" alt="Default"></div>
+                <div class="ba-img ba-after" id="afterImg"><img src="https://mc-heads.net/body/Dream/left" alt="Custom"></div>
+                <input type="range" min="0" max="100" value="50" class="ba-slider" id="baSlider">
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding container">
+        <div class="text-center reveal">
+            <h2 class="pixel-font" style="font-size:1.5rem;">What They Say ⭐</h2>
+            <p class="text-muted">Review asli dari para pelanggan.</p>
+        </div>
+        <div class="testi-grid reveal">
+            <div class="testi-card"><div class="testi-header"><div class="testi-avatar"></div><div><h4>Zaky_Pro</h4><div style="color:var(--accent-gold);">★★★★★</div></div></div><p style="font-style:italic; color:var(--text-muted);">"Detailnya rapi banget 🔥 Warna kulit sama shading bajunya persis referensi."</p></div>
+            <div class="testi-card"><div class="testi-header"><div class="testi-avatar" style="background-position:2px 0;"></div><div><h4>AraCute</h4><div style="color:var(--accent-gold);">★★★★★</div></div></div><p style="font-style:italic; color:var(--text-muted);">"Cepet + sesuai request. Admin ramah pol, bisa revisi bagian yang kurang pas."</p></div>
+            <div class="testi-card"><div class="testi-header"><div class="testi-avatar" style="background-position:0 8px;"></div><div><h4>Rvn_Gaming</h4><div style="color:var(--accent-gold);">★★★★★</div></div></div><p style="font-style:italic; color:var(--text-muted);">"Worth it banget buat harga segini dapet skin premium. Bakal langganan sih!"</p></div>
+        </div>
+    </section>
+
+    <footer class="cta-footer">
+        <div class="cta-box reveal">
+            <h2 class="pixel-font" style="font-size:1.4rem; margin-bottom:15px;">Tertarik Punya Skin Sendiri?</h2>
+            <p style="color:var(--text-muted); margin-bottom:30px;">"Skin kamu, style kamu. Jangan pake yang pasaran."</p>
+            <a href="https://wa.me/6282191598309?text=Halo%20kak%2C%20saya%20mau%20order%20skin%20Minecraft.%0A%0ANama%3A%0AJenis%20(Head%20%2F%20Shirt%20%2F%20Pants%20%2F%20Full%20Body)%3A%0ADeskripsi%3A" target="_blank" class="btn btn-wa pixel-font" style="font-size:0.9rem; display:inline-flex; align-items:center; gap:10px;">
+                <i class="fab fa-whatsapp" style="font-size:1.5rem;"></i> 🔥 Bikin skin kamu beda sekarang
+            </a>
+            <p style="margin-top:40px; font-size:0.85rem; color:var(--text-muted);">
+                &copy; <span id="year"></span> Gyzenn Community <i class="fas fa-cube" style="color:var(--mc-brown);"></i>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Dark mode toggle
+        const darkToggle = document.getElementById('darkToggle');
+        const darkToggleMobile = document.getElementById('darkToggleMobile');
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            const icon = isDark ? 'fa-sun' : 'fa-moon';
+            darkToggle.innerHTML = `<i class="fas ${icon}"></i>`;
+            if (darkToggleMobile) darkToggleMobile.innerHTML = `<i class="fas ${icon}"></i>`;
+            localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+        }
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            darkToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            if (darkToggleMobile) darkToggleMobile.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        darkToggle.addEventListener('click', toggleDarkMode);
+        if (darkToggleMobile) darkToggleMobile.addEventListener('click', toggleDarkMode);
+        function updateMobileToggle() {
+            if (darkToggleMobile) darkToggleMobile.style.display = window.innerWidth <= 768 ? 'block' : 'none';
+        }
+        window.addEventListener('resize', updateMobileToggle);
+        updateMobileToggle();
+
+        // Mobile menu
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuBtn.classList.toggle('fa-times', navLinks.classList.contains('active'));
+        });
+
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('active'); observer.unobserve(e.target); } });
+        }, { threshold:0.15 });
+        revealEls.forEach(el => observer.observe(el));
+
+        // Filter
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('.skin-item').forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.classList.remove('hide');
+                        item.style.animation = 'none'; item.offsetHeight; item.style.animation = 'fadeIn 0.5s ease forwards';
+                    } else {
+                        item.classList.add('hide');
+                    }
+                });
+            });
+        });
+
+        // Before/After slider
+        const slider = document.getElementById('baSlider');
+        const after = document.getElementById('afterImg');
+        slider.addEventListener('input', (e) => {
+            after.style.clipPath = `polygon(0 0, ${e.target.value}% 0, ${e.target.value}% 100%, 0 100%)`;
+        });
+
+        // Order slots
+        function updateSlots() {
+            const used = Math.floor(Math.random()*8)+2;
+            document.getElementById('slotCount').textContent = `${10-used}/10`;
+        }
+        updateSlots();
+        setInterval(updateSlots, 180000);
+
+        // Live toast
+        const toast = document.getElementById('live-toast');
+        const toastName = document.getElementById('toast-name');
+        const toastType = document.getElementById('toast-type');
+        const names = ["Rizky_Gamer","Aliazz","PandaMabar","StevenXX","NaylaCute","BudiCraft"];
+        const types = ["Custom Skin Full Body","Head Skin","Shirt Custom","Photoshoot 12 Foto"];
+        function showToast() {
+            toastName.textContent = names[Math.floor(Math.random()*names.length)];
+            toastType.textContent = types[Math.floor(Math.random()*types.length)];
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 5000);
+        }
+        setTimeout(() => { showToast(); setInterval(showToast, Math.floor(Math.random()*18000)+12000); }, 6000);
+        window.dismissToast = () => toast.classList.remove('show');
+    </script>
+</body>
+</html>
