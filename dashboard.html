@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | AxelL Skin Studio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS Reset & Variables --- */
+        :root {
+            --mc-green: #4CAF50;
+            --mc-green-dark: #388E3C;
+            --mc-brown: #795548;
+            --bg-light: #F9FAFB;
+            --bg-card: #ffffff;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+            --accent-gold: #FFCA28;
+            --accent-orange: #F59E0B;
+            --border-light: #E5E7EB;
+            --shadow-soft: 0 10px 25px rgba(0,0,0,0.05);
+            --shadow-hover: 0 15px 35px rgba(0,0,0,0.1);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --bg-light: #1a1a2e;
+            --bg-card: #16213e;
+            --text-dark: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --border-light: #2a2a4a;
+            --shadow-soft: 0 10px 25px rgba(0,0,0,0.3);
+            --shadow-hover: 0 15px 35px rgba(76, 175, 80, 0.15);
+            --nav-bg: rgba(26, 26, 46, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .pixel-font { font-family: 'Press Start 2P', cursive; line-height: 1.4; }
+        a { text-decoration: none; color: inherit; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Navbar --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            padding: 15px 0;
+            border-bottom: 2px solid var(--border-light);
+            transition: background 0.3s;
+        }
+        
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: var(--mc-green); font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--mc-brown); }
+        
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        
+        .btn-home {
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+        .btn-home:hover { color: var(--mc-green); }
+
+        .dark-toggle {
+            background: var(--bg-card);
+            border: 2px solid var(--border-light);
+            border-radius: 50%;
+            width: 40px; height: 40px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-dark);
+            transition: all 0.3s;
+        }
+        .dark-toggle:hover { border-color: var(--mc-green); transform: rotate(15deg); }
+
+        /* --- Dashboard Layout --- */
+        .dashboard-wrapper {
+            padding: 120px 0 60px;
+            min-height: 100vh;
+        }
+
+        .dashboard-header { margin-bottom: 30px; }
+        .dashboard-title { font-size: 1.8rem; margin-bottom: 5px; }
+        .dashboard-subtitle { color: var(--text-muted); }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* --- Left Column: Profile Card --- */
+        .profile-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            border: 2px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 80px;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(76, 175, 80, 0.1),
+                rgba(76, 175, 80, 0.1) 10px,
+                rgba(76, 175, 80, 0.2) 10px,
+                rgba(76, 175, 80, 0.2) 20px
+            );
+            border-bottom: 4px solid var(--mc-green);
+        }
+
+        .avatar-container {
+            width: 100px; height: 100px;
+            margin: 10px auto 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .avatar-img {
+            width: 100%; height: 100%;
+            border-radius: 20px;
+            border: 4px solid var(--bg-card);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: #e0e0e0;
+            image-rendering: pixelated;
+        }
+
+        .username { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; }
+        .user-role { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 25px; }
+
+        .status-box {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: left;
+        }
+        body.dark-mode .status-box { background: rgba(245, 158, 11, 0.05); }
+
+        .status-icon {
+            width: 40px; height: 40px;
+            background: var(--accent-orange);
+            color: white;
+            border-radius: 12px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .status-text h4 { font-size: 0.9rem; margin-bottom: 2px; }
+        .status-text p { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+
+        .btn {
+            display: inline-flex; justify-content: center; align-items: center; gap: 10px;
+            width: 100%; padding: 14px;
+            border-radius: 14px; font-weight: 700;
+            border: none; cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-order {
+            background: var(--mc-green);
+            color: white;
+            box-shadow: 0 6px 0 var(--mc-green-dark);
+        }
+        .btn-order:hover { transform: translateY(-3px); box-shadow: 0 6px 0 var(--mc-green-dark), 0 10px 20px rgba(76,175,80,0.3); }
+        .btn-order:active { transform: translateY(3px); box-shadow: 0 0 0 var(--mc-green-dark); }
+
+        /* --- Right Column: Orders List --- */
+        .orders-section {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: var(--shadow-soft);
+            border: 2px solid var(--border-light);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i { color: var(--mc-brown); }
+
+        .order-list { display: flex; flex-direction: column; gap: 15px; }
+
+        .order-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid var(--border-light);
+            border-radius: 16px;
+            transition: all 0.3s;
+            background: var(--bg-light);
+        }
+
+        .order-card:hover {
+            border-color: var(--mc-green);
+            transform: translateX(5px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .order-info { display: flex; align-items: center; gap: 15px; }
+        
+        .order-icon {
+            width: 50px; height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            border: 2px solid var(--border-light);
+        }
+        body.dark-mode .order-icon { background: var(--bg-card); }
+
+        .order-details h4 { font-size: 1rem; margin-bottom: 4px; }
+        
+        .order-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .order-id { font-family: 'Press Start 2P', cursive; font-size: 0.6rem; color: var(--mc-green); }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-progress { background: rgba(245, 158, 11, 0.1); color: var(--accent-orange); border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-done { background: rgba(76, 175, 80, 0.1); color: var(--mc-green-dark); border: 1px solid rgba(76, 175, 80, 0.3); }
+        body.dark-mode .badge-done { color: #81C784; }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 850px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .orders-section { padding: 25px; }
+            .order-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .badge { align-self: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo pixel-font">
+                <i class="fas fa-cube"></i> AxelL
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="btn-home">
+                    <i class="fas fa-arrow-left"></i> <span class="hidden-mobile">Home</span>
+                </a>
+                <button class="dark-toggle" id="darkToggle" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-wrapper">
+        <div class="container">
+            
+            <div class="dashboard-header">
+                <h1 class="dashboard-title pixel-font" style="font-size: 1.5rem;">Dashboard</h1>
+                <p class="dashboard-subtitle">Pantau status pesanan skin kamu di sini.</p>
+            </div>
+
+            <div class="dashboard-grid">
+                
+                <!-- LEFT: Profile & Status -->
+                <aside class="profile-card">
+                    <!-- Avatar menggunakan mc-heads (contoh player) -->
+                    <div class="avatar-container">
+                        <img src="https://pps.whatsapp.net/m1/v/t24/An9p7qLfO0o1lI2xa75Y8O1kqiHAmys_H7-TF6rib9wVay_CTJ_QfTkZSygZ3ClFqMD53mDr__BzJvNOjpATyUJw8wItlbKj0zFRJG55OCak0OJfQH8mE7WW3abFfclETCIwSQWnnE5NAlINmFA?stp=dst-jpg_tt6&ccb=10-5&oh=01_Q5Aa4QF-nPAzJ061dy2FkeJ2NgDg5FgoNI2gt1JnAjUDJAWdBA&oe=69F9B81E&_nc_sid=5e03e0&_nc_cat=106" alt="User Avatar" class="avatar-img" id="user-avatar">
+                    </div>
+                    <h2 class="username" id="user-name">Fazryy</h2>
+                    <p class="user-role">Customer</p>
+
+                    <!-- Active Status Box -->
+                    <div class="status-box">
+                        <div class="status-icon"><i class="fas fa-hammer"></i></div>
+                        <div class="status-text">
+                            <h4>Status Aktif</h4>
+                            <p id="active-order-count">2 Order in Progress</p>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <a href="how-to-order.html" class="btn btn-order pixel-font" style="font-size: 0.8rem;">
+                        <i class="fas fa-plus"></i> Order Lagi
+                    </a>
+                </aside>
+
+                <!-- RIGHT: Orders List -->
+                <section class="orders-section">
+                    <h3 class="section-title pixel-font"><i class="fas fa-list-alt"></i> Riwayat Pesanan</h3>
+                    
+                    <!-- Container untuk Order Items (bisa di-loop dari database nanti) -->
+                    <div class="order-list" id="order-list">
+                        
+                        <!-- Order Item: IN PROGRESS -->
+                        <div class="order-card">
+                            <div class="order-info">
+                                <div class="order-icon"><i class="fas fa-paint-brush"></i></div>
+                                <div class="order-details">
+                                    <h4>Anime Skin Custom - Full Body</h4>
+                                    <div class="order-meta">
+                                        <span class="order-id">#AXL-9823</span>
+                                        <span>•</span>
+                                        <span>02 May 2026</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="badge badge-progress">
+                                <i class="fas fa-spinner fa-spin"></i> In Progress
+                            </div>
+                        </div>
+
+                        <!-- Order Item: DONE -->
+                        <div class="order-card">
+                            <div class="order-info">
+                                <div class="order-icon"><i class="fas fa-tshirt"></i></div>
+                                <div class="order-details">
+                                    <h4>Casual Boy Skin - Head & Shirt</h4>
+                                    <div class="order-meta">
+                                        <span class="order-id">#AXL-9710</span>
+                                        <span>•</span>
+                                        <span>25 apr 2026</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="badge badge-done">
+                                <i class="fas fa-check-circle"></i> Selesai
+                            </div>
+                        </div>
+
+                        <!-- Order Item: DONE -->
+                        <div class="order-card">
+                            <div class="order-info">
+                                <div class="order-icon"><i class="fas fa-camera"></i></div>
+                                <div class="order-details">
+                                    <h4>Photoshoot - 5 Render</h4>
+                                    <div class="order-meta">
+                                        <span class="order-id">#AXL-9654</span>
+                                        <span>•</span>
+                                        <span>21 apr 2026</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="badge badge-done">
+                                <i class="fas fa-check-circle"></i> Selesai
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Script for Dark Mode -->
+    <script>
+        const darkToggle = document.getElementById('darkToggle');
+
+        // Fungsi Toggle Dark Mode
+        function toggleDark() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            // Ubah icon
+            const icon = isDark ? 'fa-sun' : 'fa-moon';
+            darkToggle.innerHTML = `<i class="fas ${icon}"></i>`;
+            
+            // Simpan preferensi di Local Storage
+            localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+        }
+
+        // Cek preferensi user saat halaman dimuat
+        if(localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            darkToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        darkToggle.addEventListener('click', toggleDark);
+
+        /* * Catatan untuk Developer Frontend/Backend di masa depan:
+         * * Data dummy di atas (Nama, Avatar, List Order) dapat dengan mudah
+         * diubah menjadi data dinamis.
+         * * Contoh manipulasi DOM sederhana jika menggunakan fetch API:
+         * document.getElementById('user-name').textContent = data.username;
+         * document.getElementById('user-avatar').src = `https://mc-heads.net/avatar/${data.mc_username}/128`;
+         */
+    </script>
+</body>
+</html>
